@@ -1,5 +1,7 @@
+import throttle from 'lodash.throttle';
+
 const formEl = document.querySelector('.feedback-form');
-formEl.addEventListener('input', onFormInput);
+formEl.addEventListener('input', throttle(onFormInput, 5000));
 formEl.addEventListener('submit', onFormSubmit);
 
 populateForm();
@@ -9,7 +11,6 @@ function onFormInput(e) {
   const nameEl = e.target.name;
   data[nameEl] = e.target.value;
   saveToLS('feedback-form-state', data);
-  console.log(e);
 }
 
 function onFormSubmit(e) {
